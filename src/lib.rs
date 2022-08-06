@@ -323,8 +323,8 @@ pub fn ask_many<T: Askable, S: AsRef<str>>(prompt_str: S, sep: Separator) -> Res
     Ok(v)
 }
 
-/// Ask the user for multiple values of type T. The user is prompted repeatedly until all
-/// values are parseable.
+/// Ask the user for multiple values of type T. The user is prompted repeatedly
+/// until all values are parseable.
 ///
 /// Input is read multiple times.
 ///
@@ -458,7 +458,11 @@ pub trait Askable {
     /// }
     ///
     /// impl Askable for X {
-    ///     fn convert<S: AsRef<str>>(s: S) -> Result<Self> { Ok(X { x: s.as_ref().trim().parse::<i32>()? }) }
+    ///     fn convert<S: AsRef<str>>(s: S) -> Result<Self> {
+    ///         Ok(X {
+    ///             x: s.as_ref().trim().parse::<i32>()?
+    ///         })
+    ///     }
     /// }
     /// ```
     fn convert<S: AsRef<str>>(s: S) -> Result<Self>
