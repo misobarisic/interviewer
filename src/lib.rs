@@ -458,7 +458,7 @@ pub trait Askable {
     /// }
     ///
     /// impl Askable for X {
-    ///     fn convert<S: AsRef<str>>(s: S) -> Result<Self> { Ok(X { x: s.parse::<i32>()? }) }
+    ///     fn convert<S: AsRef<str>>(s: S) -> Result<Self> { Ok(X { x: s.as_ref().trim().parse::<i32>()? }) }
     /// }
     /// ```
     fn convert<S: AsRef<str>>(s: S) -> Result<Self>
