@@ -38,14 +38,14 @@ const WHITESPACE_REPR: &str = "THIS___IS__A_REPR";
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use interviewer::{ask_until, set_consumable_quotes};
 /// set_consumable_quotes(ask_until("enter a bool: "));
 /// ```
 ///
 /// ### false
 ///
-/// ```
+/// ```ignore
 /// use interviewer::{ask_many, ask_until, set_consumable_quotes, Separator};
 /// set_consumable_quotes(false);
 /// let s: Vec<String> = ask_many("enter a value: ", Separator::Sequence(",")).unwrap();
@@ -55,7 +55,7 @@ const WHITESPACE_REPR: &str = "THIS___IS__A_REPR";
 ///
 /// ### true
 ///
-/// ```
+/// ```ignore
 /// use interviewer::{ask_many, ask_until, set_consumable_quotes, Separator};
 /// set_consumable_quotes(true);
 /// let s: Vec<String> = ask_many("enter a value: ", Separator::Sequence(",")).unwrap();
@@ -126,7 +126,7 @@ fn get_str<S: AsRef<str>>(prompt_str: S) -> String {
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use interviewer::ask;
 /// let s: i32 = ask("enter an i32: ").unwrap();
 /// println!("{}", s);
@@ -149,7 +149,7 @@ pub fn ask<T: Askable, S: AsRef<str>>(prompt_str: S) -> Result<T> {
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use interviewer::ask_opt;
 /// let s: Option<i32> = ask_opt("enter an i32: ");
 /// match s {
@@ -182,7 +182,7 @@ pub fn ask_opt<T: Askable, S: AsRef<str>>(prompt_str: S) -> Option<T> {
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use interviewer::ask_until;
 /// let s: i32 = ask_until("enter an i32: ");
 /// println!("{}", s);
@@ -308,7 +308,7 @@ macro_rules! many_main {
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use interviewer::ask_many;
 /// use interviewer::Separator::Whitespace;
 /// let s: Vec<i32> = ask_many("enter multiple i32s: ", Whitespace).unwrap();
@@ -337,7 +337,7 @@ pub fn ask_many<T: Askable, S: AsRef<str>>(prompt_str: S, sep: Separator) -> Res
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use interviewer::{ask_many_until, Separator};
 /// let s: Vec<i32> = ask_many_until("enter some i32s: ", Separator::SequenceTrim(","));
 /// println!("{:?}", s);
@@ -378,7 +378,7 @@ pub fn ask_many_until<T: Askable, S: AsRef<str>>(prompt_str: S, sep: Separator) 
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use interviewer::ask_many_opt;
 /// use interviewer::Separator::Whitespace;
 /// let s: Vec<i32> = ask_many_opt("enter multiple i32s: ", Whitespace).unwrap();
@@ -415,7 +415,7 @@ pub fn ask_many_opt<T: Askable, S: AsRef<str>>(prompt_str: S, sep: Separator) ->
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use interviewer::ask_many_opt;
 /// use interviewer::Separator::Whitespace;
 /// let s: Vec<i32> = ask_many_opt("enter multiple i32s: ", Whitespace).unwrap();
@@ -451,7 +451,7 @@ pub trait Askable {
     ///
     /// # Examples
     ///
-    /// ```
+    /// ```ignore
     /// use interviewer::{Askable, Result};
     /// struct X {
     ///     x: i32

@@ -1,4 +1,4 @@
-use interviewer::{ask, ask_many, ask_until, Separator};
+use interviewer::{ask_many, Separator};
 
 fn main() {
     let floats: Vec<f64> = ask_many("Enter your name: ", Separator::Sequence(",")).unwrap();
