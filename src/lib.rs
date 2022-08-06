@@ -1,5 +1,7 @@
 #![allow(dead_code)]
 #![forbid(unsafe_code)]
+// #![allow(incomplete_features)]
+// #![feature(specialization)]
 
 use std::cmp::Ordering;
 use std::fmt::Debug;
@@ -8,6 +10,14 @@ use std::sync::{Arc, Mutex};
 
 use custom_error::custom_error;
 use lazy_static::lazy_static;
+#[cfg(feature = "num-bigfloat")]
+use num_bigfloat::BigFloat;
+#[cfg(feature = "num-bigint")]
+use num_bigint::{BigInt, BigUint};
+#[cfg(feature = "num-complex")]
+use num_complex::{Complex32, Complex64};
+#[cfg(feature = "num-rational")]
+use num_rational::{BigRational, Rational32, Rational64};
 
 lazy_static! {
     static ref PARSE_QUOTES: Arc<Mutex<bool>> = Arc::new(Mutex::new(false));
@@ -84,7 +94,8 @@ pub enum Separator<'a> {
 fn get_str<S: AsRef<str>>(prompt_str: S) -> String {
     let editor = Arc::clone(&EDITOR);
     let mut editor = editor.lock().unwrap();
-    match editor.as_mut() {
+    let editor = editor.as_mut();
+    match editor {
         Some(editor) => {
             let readline = editor.readline(prompt_str.as_ref());
             match readline {
@@ -493,7 +504,7 @@ macro_rules! impl_askable {
     ($t:ty) => {
         impl Askable for $t {
             fn convert<S: AsRef<str>>(s: S) -> Result<Self> {
-                match s.as_ref().trim().parse::<$t>() {
+                match s.as_ref().parse::<$t>() {
                     Ok(s) => Ok(s),
                     _ => Err(InterviewError::ParseError {
                         origin: s.as_ref().to_string(),
@@ -520,3 +531,38 @@ impl_askable!(u128);
 impl_askable!(usize);
 impl_askable!(f32);
 impl_askable!(f64);
+
+#[cfg(feature = "num-bigint")]
+impl_askable!(BigInt);
+#[cfg(feature = "num-bigint")]
+impl_askable!(BigUint);
+
+#[cfg(feature = "num-complex")]
+impl_askable!(Complex32);
+#[cfg(feature = "num-complex")]
+impl_askable!(Complex64);
+
+#[cfg(feature = "num-bigfloat")]
+impl_askable!(BigFloat);
+
+#[cfg(feature = "num-rational")]
+impl_askable!(Rational32);
+#[cfg(feature = "num-rational")]
+impl_askable!(Rational64);
+#[cfg(feature = "num-rational")]
+impl_askable!(BigRational);
+
+// Waiting for specialization to become stable
+// #[cfg(feature = "nightly")]
+// default impl<T> Askable for T
+//     where   T: FromStr {
+//     fn convert<S: AsRef<str>>(s: S) -> Result<Self> where Self: Sized {
+//         match s.as_ref().parse::<Self>() {
+//             Ok(s) => Ok(s),
+//             _ => Err(InterviewError::ParseError {
+//                 origin: s.as_ref().to_string(),
+//                 target: std::any::type_name::<Self>().to_string(),
+//             })
+//         }
+//     }
+// }

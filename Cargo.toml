@@ -10,10 +10,22 @@ keywords = ["prompt", "cli"]
 categories = ["command-line-interface"]
 readme = "README.md"
 
+[features]
+nightly = []
+num = ["num-bigint", "num-bigfloat", "num-complex", "num-rational"]
+num-bigint = ["dep:num-bigint"]
+num-bigfloat = ["dep:num-bigfloat"]
+num-complex =["dep:num-complex"]
+num-rational =["dep:num-rational"]
+
 [dependencies]
 custom_error = "1.9.2"
 lazy_static = "1.4.0"
 rustyline = "10.0.0"
+num-bigint = { version = "0.4.3", optional = true }
+num-bigfloat = { version = "1.3.1", optional = true }
+num-complex = { version = "0.4.2", optional = true }
+num-rational = {version = "0.4.1", optional = true}
 
 [dev-dependencies]
 criterion = { version = "0.3.6", features = ["html_reports"] }
