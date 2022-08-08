@@ -25,7 +25,7 @@ No need to chit-chat. Examples are much better:
 use interviewer::{ask, ask_opt, ask_until, ask_many, Separator};
 
 // Ask once
-let num: i32 = ask("Enter an 32: ").unwrap_or(0);
+let num: i32 = ask("Enter an i32: ").unwrap_or(0);
 
 // Ask until valid input
 let num: f32 = ask_until("Enter an f32: ");
